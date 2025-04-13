@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Analysis Results</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        h1 {
+            color: #4285F4;
+            text-align: center;
+        }
+        .container {
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        .results {
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+        .image-container {
+            flex: 1;
+            min-width: 300px;
+            text-align: center;
+        }
+        .labels-container {
+            flex: 1;
+            min-width: 300px;
+            padding: 0 20px;
+        }
+        .uploaded-image {
+            max-width: 100%;
+            max-height: 400px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .label-item {
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        .label-score {
+            float: right;
+            background-color: #4285F4;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.8em;
+        }
+        .back-button {
+            display: block;
+            background-color: #4285F4;
+            color: white;
+            text-decoration: none;
+            text-align: center;
+            padding: 10px 20px;
+            border-radius: 4px;
+            margin-top: 20px;
+        }
+        .back-button:hover {
+            background-color: #3367D6;
+        }
+        .mock-notice {
+            background-color: #FFF3CD;
+            border: 1px solid #FFEEBA;
+            color: #856404;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .error-notice {
+            background-color: #F8D7DA;
+            border: 1px solid #F5C6CB;
+            color: #721C24;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Image Analysis Results</h1>
+    <div class="container">
+        <h2>Google Cloud Vision API Analysis</h2>
+
+        <% if (typeof usingMockClient !== 'undefined' && usingMockClient) { %>
+            <div class="mock-notice">
+                <strong>Note:</strong> Using sample data instead of real Google Cloud Vision API.
+                <br>To use the real API, set up Google Cloud credentials.
+            </div>
+        <% } %>
+
+        <% if (typeof errorMessage !== 'undefined' && errorMessage) { %>
+            <div class="error-notice">
+                <%= errorMessage %>
+            </div>
+        <% } %>
+
+        <div class="results">
+            <div class="image-container">
+                <h3>Uploaded Image</h3>
+                <img src="<%= imageUrl %>" alt="Uploaded Image" class="uploaded-image">
+            </div>
+
+            <div class="labels-container">
+                <h3>Detected Labels</h3>
+                <% if (labels && labels.length > 0) { %>
+                    <% labels.forEach(label => { %>
+                        <div class="label-item">
+                            <span class="label-score"><%= Math.round(label.score * 100) %>%</span>
+                            <strong><%= label.description %></strong>
+                        </div>
+                    <% }); %>
+                <% } else { %>
+                    <p>No labels were detected in this image.</p>
+                <% } %>
+            </div>
+        </div>
+
+        <a href="/" class="back-button">Analyze Another Image</a>
+    </div>
+</body>
+</html>

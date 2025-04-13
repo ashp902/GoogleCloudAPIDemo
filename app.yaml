@@ -1,0 +1,21 @@
+runtime: nodejs16
+
+env_variables:
+  # Set any environment variables here
+  # Note: For production, you should set up authentication differently
+  # See: https://cloud.google.com/appengine/docs/standard/nodejs/using-cloud-client-libraries
+
+handlers:
+  # Serve static files
+  - url: /(.+\.(gif|png|jpg|css|js|ico))$
+    static_files: public/\1
+    upload: public/.*\.(gif|png|jpg|css|js|ico)$
+
+  # Serve the uploads directory
+  - url: /uploads/(.+)
+    static_files: uploads/\1
+    upload: uploads/.*
+
+  # All other requests are handled by the Node.js app
+  - url: /.*
+    script: auto
