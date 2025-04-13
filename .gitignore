@@ -5,14 +5,14 @@ yarn-debug.log
 yarn-error.log
 
 # Environment variables
-# .env
+.env
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
 
 # Google Cloud credentials
-# key.json
+key.json
 *.pem
 credentials.json
 *-credentials.json
@@ -60,7 +60,7 @@ jspm_packages/
 .yarn-integrity
 
 # dotenv environment variable files
-# .env
+.env
 
 # Mac files
 .DS_Store

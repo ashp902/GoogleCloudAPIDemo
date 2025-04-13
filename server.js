@@ -43,15 +43,20 @@ app.use('/uploads', express.static('uploads'));
 
 // Initialize Google Cloud Vision client
 // This provides multiple ways to authenticate:
-// 1. Using GOOGLE_APPLICATION_CREDENTIALS environment variable
-// 2. Using a specified keyFilename
-// 3. Using credentials passed directly
+// 1. Using GOOGLE_APPLICATION_CREDENTIALS environment variable (traditional approach)
+// 2. Using credentials directly from environment variables (more secure)
 
 let visionClientOptions = {};
 
-// If a specific key file is provided in .env, use that
-if (process.env.GOOGLE_CLOUD_KEYFILE) {
-  visionClientOptions.keyFilename = process.env.GOOGLE_CLOUD_KEYFILE;
+// Check if direct credentials are provided in environment variables
+if (process.env.GCP_PROJECT_ID && process.env.GCP_CLIENT_EMAIL && process.env.GCP_PRIVATE_KEY) {
+  // Use credentials directly from environment variables
+  visionClientOptions.credentials = {
+    client_email: process.env.GCP_CLIENT_EMAIL,
+    private_key: process.env.GCP_PRIVATE_KEY.replace(/\\n/g, '\n'),
+    project_id: process.env.GCP_PROJECT_ID
+  };
+  console.log('Using credentials directly from environment variables');
 }
 
 // For demo purposes, we'll create a mock client for local testing

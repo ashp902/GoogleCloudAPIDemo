@@ -36,18 +36,32 @@ npm install
 
 1. Create a Google Cloud Platform project
 2. Enable the Cloud Vision API
-3. Create a service account and download the key file
-4. Rename the key file to `key.json` and place it in the project root directory
-   (or update the .env file with the correct path)
+3. Create a service account with the "Cloud Vision API User" role
+4. Create a key for the service account (JSON format)
+5. Extract the necessary information from the JSON file for your environment variables
 
 ### 4. Configure environment variables
 
 Create a `.env` file in the project root with the following content:
 
 ```
-GOOGLE_APPLICATION_CREDENTIALS=./key.json
-PORT=8080
+# Google Cloud credentials (extract these from your service account key file)
+GCP_PROJECT_ID=your-project-id
+GCP_CLIENT_EMAIL=your-service-account@your-project-id.iam.gserviceaccount.com
+GCP_PRIVATE_KEY=-----BEGIN PRIVATE KEY-----\nYour private key content with \n for line breaks\n-----END PRIVATE KEY-----
+
+# Server port
+PORT=3000
 ```
+
+**Important Notes about the Private Key:**
+
+- When copying the private key from your JSON file, replace all newline characters (`\n`) with the string `\n`
+- Make sure to include the `-----BEGIN PRIVATE KEY-----` and `-----END PRIVATE KEY-----` parts
+- If you're having issues with the private key format, you can use the alternative method with the key file path:
+  ```
+  GOOGLE_APPLICATION_CREDENTIALS=./path/to/your/credentials.json
+  ```
 
 ## Running Locally
 
