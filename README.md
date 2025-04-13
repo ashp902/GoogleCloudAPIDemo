@@ -57,27 +57,6 @@ Start the development server:
 npm run dev
 ```
 
-The application will be available at http://localhost:8080
-
-## Deploying to Google App Engine
-
-1. Make sure you have the Google Cloud SDK installed and configured
-
-2. Initialize your app (if not already done):
-   ```bash
-   gcloud init
-   ```
-
-3. Deploy the app:
-   ```bash
-   gcloud app deploy
-   ```
-
-4. Access your deployed app:
-   ```bash
-   gcloud app browse
-   ```
-
 ## Project Structure
 
 ```
@@ -102,6 +81,3 @@ vision-app/
 ### Results Page
 ![Results Page](screenshots/results.png)
 
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
